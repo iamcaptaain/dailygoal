@@ -1,0 +1,56 @@
+{% extends 'index.html'%}
+
+{% block content %}
+<form class="login100-form validate-form" action="register" method="POST">
+    {% csrf_token %}
+      <span class="login100-form-title p-b-43">
+        DailyGoal<br><small>Register Panel</small>
+      </span>	
+            
+      {% for msg in messages %}
+          <div class="text-center p-t-46 p-b-20">
+              <span class="txt2 msg" id='e' > * {{msg}} </span>
+          </div>
+      {% endfor%}
+      <span id="e"></span>
+      <div class="wrap-input100 " >
+          <input class="input100" id="uname" type="text" name="username">
+          <span class="focus-input100"></span>
+          <span class="label-input100">Username</span>
+      </div>
+      
+      
+      <div class="wrap-input100 validate-input" data-validate="Password is required">
+          <input class="input100" type="password" name="pass">
+          <span class="focus-input100"></span>
+          <span class="label-input100">Password</span>
+      </div>
+      
+      <div class="wrap-input100 " >
+        <input class="input100" type="password" name="pass1">
+        <span class="focus-input100"></span>
+        <span class="label-input100">Confirm Password</span>
+      </div>
+
+      <div class="wrap-input100 " >
+        <input class="input100" type="email" name="email">
+        <span class="focus-input100"></span>
+        <span class="label-input100">Email</span>
+      </div>
+      <div class="container-login100-form-btn">
+          <button class="login100-form-btn">
+              SignUp
+          </button>
+      </div>
+      
+      <div class="text-center p-t-46 p-b-20">
+          <span class="txt2">
+              Already account
+              <a href="/">Login </a> 
+          </span>
+      </div>
+    </form>
+{% endblock %}
+
+
+

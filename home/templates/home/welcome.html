@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/wel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fabric.min.css' %}">
+    <title>Home</title>
+</head>
+<body >
+<div class="wrapper">
+    <nav class="nav-main">
+        <div class="nav-log">
+            <h2>DailyGoal</h2>
+        </div>
+        <div class="side-item">
+            <a class="out " href='home'>Home</a>
+            <a class="out " href="add-ac">Add Activity</a>
+            <a class="out " href="history">History</a>
+            <a class="out " href="notes">Notes</a>
+            <a class="out " href="/out_view">Logout</a>
+            {%  if user.user_profiles.image %}
+            <a class="user-ico" href="#"><img src="{{user.user_profiles.image.url | default_if_none:'#'}}"  alt="Profile Pic"></a>
+            {% endif %}
+        </div>
+    </nav>
+
+      <!-- nav bar end -->
+
+    <section class="wel-note">
+        <div class = "sec-wrap">
+            <div class="cnt-sh">
+               <span> Hello ! </span>
+            </div>
+            <div class="usr-nm">
+                <span>{{user.user_profiles.first_name }}</span>
+            </div>
+        </div>
+    </section>
+
+
+    <name>
+        <div class="heading">
+            <h1> today activity </h1>
+        </div>
+    </name>
+
+    
+    <main>
+        <div class="main-hglt">
+            <div>  <span> Ended </span>   </div>
+            <div>  <span> Ongoing </span>  </div>
+            <div>  <span> Upcomimg </span>   </div>
+        </div>
+        <div class="main-cnt">
+            <!--{% for i in act %}  -->
+                <div class="card-a">
+                    <div class="card-time"> 
+                        <samp> Its </samp> 
+                        <span>{{ i.time }} </span>
+                    </div>
+                    <div class="card-act">  
+                        <span>{{ i.activity }} </span>  
+                        <samp> time </samp>  
+                    </div>
+                    <!-- <div class="know"><span>know :</span></div> -->
+                    <div class="card-des">  
+                        <span>{{ i.description }}   </span>
+                    </div>
+                    <div class="card-lim"> 
+                        <span>left</span>  <span>{{ i.duration }}</span> 
+                    </div>
+                </div>
+            <!-- {% endfor %} -->
+        </div>
+
+    </main>
+
+</div>
+  
+
+    
+
+
+    <footer>
+        <div>
+            <p>
+                This is inform this template has MIT license free to use.
+            </p>
+        </div>
+        <div>
+            @ Copyright is under captain company
+        </div>
+    </footer>
+
+</body>
+</html>

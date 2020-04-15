@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Activity</title>
+    <link rel="stylesheet" href="{% static 'css/acitivity.css' %}">
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav-main">
+            <div class="nav-log">
+                <h2>DailyGoal</h2>
+            </div>
+            <div class="side-item">
+                <a class="out " href='home'>Home</a>
+                <a class="out " href="add-ac">Add Activity</a>
+                <a class="out " href="history">History</a>
+                <a class="out " href="notes">Notes</a>
+                <a class="out " href="/out_view">Logout</a>
+                <a class="user-ico" href="#"><img src="{{user.user_profiles.image.url}}"  alt="Profile Pic"></a>
+            </div>
+        </nav>
+        <main>
+            
+        </main>
+        <section class="side-show">
+
+        </section>
+
+    <!-- wrapper end -->
+    </div>
+</body>
+</html>

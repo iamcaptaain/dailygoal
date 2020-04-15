@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel = "stylesheet" type = "text/css" href = "{% static 'assets/css/form.css' %}" />
+<body >
+
+<form id="regForm" method = "post" action="accounts/register">
+  {% csrf_token %}
+  <!-- One "tab" for each step in the form: -->
+  <div class="tab" id="tab">
+	<img src = "{% static 'assets/img/backmarker_logo.png' %}" class = "image">
+    <h1 class="fs-title">Enter Your Product Id</h1>
+    <input type="text" id = "productId" name="productId" oninput="this.className = ''" placeholder="Product Id" />
+  </div>
+  <div class="tab" id="tab2">
+  <img src = "{% static 'assets/img/backmarker_logo.png' %}" class = "image">
+  <h1 class="fs-title">Register Yourself</h1>
+	<input type="text" name="uname" oninput="this.className = ''" placeholder="User Name" />
+     <input type="text" name="email" id="email" oninput="this.className = ''" placeholder="Email"/>
+    <input type="password" name="pass" id="pass" oninput="this.className = ''" placeholder="Password" />
+   <input type="password" name="cpass" id="cpass" oninput="this.className = ''" placeholder="Confirm Password" />
+  </div>
+  <div class="tab">
+  <img src = "{% static 'assets/img/backmarker_logo.png' %}" class = "image">
+  <h1 class="fs-title">Personal Details</h1>
+    <input type="text" name="fname" oninput="this.className = ''" placeholder="First Name" />
+    <input type="text" name="lname" oninput="this.className = ''" placeholder="Last Name" />
+    <input type="number" name="phone" oninput="this.className = ''" placeholder="Phone" maxlength = "10"/>
+	<input type="text" name="dob" oninput="this.className = ''" placeholder="Date Of Birth" onfocus="(this.type='date')"/>
+  </div>
+  <div style="overflow:auto;">
+    <div style="float:right;">
+      <button type="button" id="prevBtn" class="action-button" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn" class="action-button" onclick="nextPrev(1)">Next</button>
+    </div>
+  </div>
+</form>
+
+<script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+var count ;
+var pass;
+var cpass;
+var atposition;
+var dotposition;
+var e;
+var a;
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+ 
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+	
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false
+      valid = false;
+    }
+    if(y[i].id == "email"){
+      atposition = y[i].value.indexOf("@");
+      if(atposition<1){
+        if (e==1) {
+        var ele = document.getElementById("msg")
+        x[currentTab].removeChild(ele);
+       e = 0;
+       } 
+      y[i].className += "invalid";
+      var para = document.createElement("p");
+      var node = document.createTextNode("Invalid email !") ;
+      para.appendChild(node);
+      para.id += "msg";
+      var element = document.getElementById("tab2");
+      element.insertBefore(para,document.getElementById("pass"));
+	  document.getElementById("msg").style.color="#880000";
+      e  = 1;
+      valid = false;
+      // and set the current valid status to false
+     
+      }
+      else{
+        if (e==1) {
+        var ele = document.getElementById("msg")
+        x[currentTab].removeChild(ele);
+       e = 0;
+       } 
+      }
+    }
+    if(y[i].id == "pass"){
+      pass = y[i].value;
+    }
+    if(y[i].id == "cpass"){
+      cpass = y[i].value;
+      if(pass != cpass){
+      if (count==1) {
+        var ele = document.getElementById("tab2");;
+        ele.removeChild(ele.lastChild);
+        count = 0;
+      }
+      
+      y[i].className += "invalid";
+      var para = document.createElement("p");
+      var node = document.createTextNode("Incorrect Password !");
+      para.appendChild(node);
+      para.id += "msg";
+      var element = document.getElementById("tab2");
+      element.appendChild(para);
+      element.lastChild.style.color="#8B0000";
+      count  = 1;
+      // and set the current valid status to false
+      valid = false;
+    }
+    else{
+      if (count==1) {
+        var ele = document.getElementById("tab2");;
+        ele.removeChild(ele.lastChild);
+        count = 0;
+      }
+    }
+    }
+  }
+
+  
+  if(x[currentTab].id=="tab"){
+  	
+   	 for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value != "" && y[i].value != "123") {
+    	if (a==1) {
+    		var ele = document.getElementsByTagName("p");
+      ele.parentNode.removeChild(ele);
+      a = 0;
+    	}
+      
+      y[i].className += "invalid";
+     var para = document.createElement("p");
+	var node = document.createTextNode("Invalid ProductID !");
+	para.appendChild(node);
+	var element = document.getElementById("tab");
+	element.appendChild(para);
+	element.lastChild.style.color="#8B0000";
+	a = 1;
+      // and set the current valid status to false
+      valid = false;
+    }
+    else{
+      if (a==1) { 
+      x[currentTab].removeChild(x[currentTab].lastChild);
+      a = 0;
+      }
+    }
+  }
+   }
+  return valid; // return the valid status
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+    "python.pythonPath": "/home/captain/Documents/bot-env/bin/python3",
+    "liveServer.settings.port": 5501,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.banditEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.mypyEnabled": false,
+    "python.linting.prospectorEnabled": false,
+    "python.linting.pydocstyleEnabled": false
+}
